@@ -39,4 +39,10 @@ def create_project():
         return jsonify({'success': False, 'message': 'Failed to create project'}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    # Use gunicorn as the production server
+    # gunicorn -w 4 -b 0.0.0.0:5000 main:app
+    # Adjust workers (-w) and bind address (-b) as needed
+    import os
+    host = '0.0.0.0'
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host=host, port=port)
